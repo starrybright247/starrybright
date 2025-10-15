@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex's Bubble World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #87CEEB, #4A90E2, #2E5C8A);
+            overflow: hidden;
+            min-height: 100vh;
+            position: relative;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 25% 25%, 
+                rgba(255, 255, 255, 0.9), 
+                rgba(255, 255, 255, 0.4) 30%, 
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(0, 0, 0, 0.05) 80%);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                inset -10px -10px 20px rgba(255, 255, 255, 0.3),
+                inset 10px 10px 20px rgba(0, 0, 0, 0.1),
+                0 0 30px rgba(255, 255, 255, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: float-up ease-in-out infinite;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(110vh) translateX(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(var(--drift)) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+        
+        .content h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            text-shadow: 
+                0 0 20px rgba(255,255,255,0.8),
+                0 0 40px rgba(135, 206, 235, 0.6),
+                3px 3px 10px rgba(0,0,0,0.3);
+            animation: float 4s ease-in-out infinite;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-25px) scale(1.05); }
+        }
+        
+        .welcome-message {
+            font-size: 1.5em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .music-section {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            z-index: 20;
+        }
+        
+        .music-section p {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .music-section iframe {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="bubbleWorld"></div>
+    
+    <div class="content">
+        <h1>🫧 Welcome to Alex's Bubble World 🫧</h1>
+        <p class="welcome-message">Where bubbles float and dreams take flight!</p>
+    </div>
+    
+    <div class="music-section">
+        <p>🎵 Vibes</p>
+        <iframe width="200" height="110" src="https://www.youtube.com/embed/8FLI-y2pZ24?si=RS5FRh91Rka0fVFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+    <script>
+        const bubbleWorld = document.getElementById('bubbleWorld');
+        
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            // Random size
+            const size = Math.random() * 80 + 30;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            
+            // Random starting position
+            bubble.style.left = Math.random() * 100 + '%';
+            
+            // Random drift amount (wobble left/right as it rises)
+            const drift = (Math.random() - 0.5) * 150;
+            bubble.style.setProperty('--drift', drift + 'px');
+            
+            // Random duration (some bubbles float faster than others)
+            const duration = Math.random() * 4 + 4;
+            bubble.style.animationDuration = duration + 's';
+            
+            // Random delay
+            bubble.style.animationDelay = Math.random() * 3 + 's';
+            
+            bubbleWorld.appendChild(bubble);
+        }
+        
+        // Create initial bubbles
+        for (let i = 0; i < 70; i++) {
+            createBubble();
+        }
+        
+        // Continuously create new bubbles (more frequently!)
+        setInterval(() => {
+            createBubble();
+            
+            // Remove old bubbles to prevent memory issues
+            setTimeout(() => {
+                const bubbles = document.querySelectorAll('.bubble');
+                if (bubbles.length > 100) {
+                    bubbles[0].remove();
+                }
+            }, 8000);
+        }, 250);
+        
+        // Add bubble pop effect on click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('bubble')) {
+                e.target.style.animation = 'none';
+                e.target.style.transform = 'scale(0)';
+                e.target.style.transition = 'transform 0.2s ease-out';
+                setTimeout(() => e.target.remove(), 200);
+            }
+        });
+    </script>
+</body>
+</html>
