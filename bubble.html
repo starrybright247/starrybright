@@ -30,7 +30,6 @@
         .bubble {
             position: absolute;
             border-radius: 50%;
-            /* Initial blue-pink gradient background */
             background: radial-gradient(circle at 25% 25%, 
                 #bae7ff 0%, /* blue highlight */
                 #90caf9 40%, /* blue */
@@ -44,7 +43,6 @@
                 inset 15px 15px 35px rgba(255,182,193,0.12),
                 0 1px 15px rgba(0,0,0,0.1),
                 0 0 100px rgba(255,255,255,0.1);
-            /* Animate color filter from blue to pink */
             animation: float-up ease-in-out infinite, bubble-color 8s linear infinite;
         }
         
@@ -58,7 +56,6 @@
                 opacity: 0;
             }
         }
-        /* Animate bubble color from blue to pink */
         @keyframes bubble-color {
             0% {
                 filter: hue-rotate(0deg) saturate(1.1);
@@ -146,7 +143,7 @@
     
     <div class="music-section">
         <p>🎵 Vibes</p>
-        <iframe width="200" height="110" src="https://www.youtube.com/embed/8FLI-y2pZ24?si=RS5FRh91Rka0fVFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-writ[...]
+        <iframe width="200" height="110" src="https://www.youtube.com/embed/8FLI-y2pZ24?si=RS5FRh91Rka0fVFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
     </div>
     
     <script>
