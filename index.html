@@ -1,29 +1,192 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Welcome to My Website!</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Alex's Site</title>
     <style>
-      h1 {
-        color: hotpink;
-        font-family: sans-serif;
-      }
-      .nyan-cat {
-        display: block;
-        margin: 20px auto;
-        width: 200px; /* Smaller image */
-        height: auto;
-      }
-      body {
-        text-align: center;
-        font-family: sans-serif;
-        background: #222;
-        color: #fff;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #013369;
+            overflow: hidden;
+            min-height: 100vh;
+            position: relative;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255,255,255,0.8);
+            animation: flyLeft linear infinite;
+        }
+        
+        @keyframes flyLeft {
+            0% {
+                transform: translateX(100vw);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-100px);
+                opacity: 1;
+            }
+        }
+        
+        .star-trail {
+            position: absolute;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+            border-radius: 50%;
+            animation: flyLeft linear infinite;
+            box-shadow: 0 0 8px rgba(255,255,255,0.6);
+        }
+        
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+        
+        .content h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            animation: float 3s ease-in-out infinite;
+            font-weight: bold;
+            color: hotpink; /* Changed from gold to hotpink */
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .nyan-gif {
+            max-width: 200px; /* Smaller size */
+            width: 200px;     /* Smaller size */
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+        }
+        
+        .music-section {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .music-section p {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: white;
+        }
     </style>
-  </head>
-  <body>
-    <h1>Welcome to My Nyan Cat Meme Site!</h1>
-    <img class="nyan-cat" src="https://media.giphy.com/media/sIIhZliB2McAo/giphy.gif" alt="Nyan Cat GIF">
-    <p>This is my first website on GitHub Pages, now featuring Nyan Cat!</p>
-  </body>
+</head>
+<body>
+    <div class="container" id="starfield"></div>
+    
+    <div class="content">
+        <h1>Welcome to Alex's Site</h1>
+        <img src="https://media.giphy.com/media/hEc4k5pN17GZq/giphy.gif" alt="Nyan Cat" class="nyan-gif">
+    </div>
+    
+    <div class="music-section">
+        <p>🎵 Music</p>
+        <iframe width="220" height="120" src="https://www.youtube.com/embed/vUijLVP_wBI?si=jocxVmRODG-Z4Ron" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+    <script>
+        const starfield = document.getElementById('starfield');
+        const colors = ['#ffffff', '#ffe9a8', '#ffd4d4', '#d4f1ff'];
+        
+        // Create flying stars (like Nyan Cat style)
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            const size = Math.random() * 4 + 2;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const duration = Math.random() * 2 + 1.5;
+            star.style.animationDuration = duration + 's';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            
+            starfield.appendChild(star);
+        }
+        
+        // Create star trails (colorful streaks)
+        function createStarTrail() {
+            const trail = document.createElement('div');
+            trail.className = 'star-trail';
+            
+            const width = Math.random() * 60 + 40;
+            trail.style.width = width + 'px';
+            trail.style.top = Math.random() * 100 + '%';
+            
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            trail.style.background = `linear-gradient(90deg, transparent, ${color}, transparent)`;
+            
+            const duration = Math.random() * 1.5 + 1;
+            trail.style.animationDuration = duration + 's';
+            trail.style.animationDelay = Math.random() * 2 + 's';
+            
+            starfield.appendChild(trail);
+        }
+        
+        // Generate lots of stars and trails
+        for (let i = 0; i < 80; i++) {
+            createStar();
+        }
+        
+        for (let i = 0; i < 30; i++) {
+            createStarTrail();
+        }
+        
+        // Continuously add more stars for endless effect
+        setInterval(() => {
+            createStar();
+            setTimeout(() => {
+                const stars = document.querySelectorAll('.star');
+                if (stars.length > 120) {
+                    stars[0].remove();
+                }
+            }, 3000);
+        }, 200);
+        
+        setInterval(() => {
+            createStarTrail();
+            setTimeout(() => {
+                const trails = document.querySelectorAll('.star-trail');
+                if (trails.length > 50) {
+                    trails[0].remove();
+                }
+            }, 3000);
+        }, 400);
+    </script>
+</body>
 </html>
