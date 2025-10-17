@@ -69,7 +69,7 @@
             text-shadow: 0 0 20px rgba(255,255,255,0.5);
             animation: float 3s ease-in-out infinite;
             font-weight: bold;
-            color: hotpink; /* Changed from gold to hotpink */
+            color: hotpink;
         }
         
         @keyframes float {
@@ -78,8 +78,8 @@
         }
         
         .nyan-gif {
-            max-width: 200px; /* Smaller size */
-            width: 200px;     /* Smaller size */
+            max-width: 200px;
+            width: 200px;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(255,255,255,0.5);
             background: rgba(255,255,255,0.1);
@@ -90,17 +90,24 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            padding: 10px;
-            background: rgba(0,0,0,0.6);
+            padding: 15px;
+            background: rgba(255,192,203,0.2);
             backdrop-filter: blur(10px);
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 20px rgba(255,192,203,0.4);
         }
         
         .music-section p {
             margin-bottom: 8px;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        
+        audio {
+            width: 200px;
+            filter: saturate(1.5) hue-rotate(330deg);
         }
     </style>
 </head>
@@ -113,7 +120,11 @@
     </div>
     
     <div class="music-section">
-        <iframe width="220" height="120" src="https://www.youtube.com/embed/vUijLVP_wBI?si=jocxVmRODG-Z4Ron" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p>🎵 Now Playing</p>
+        <audio controls autoplay loop>
+            <source src="2pac-how-do-u-want-it-instrumental-128-ytshorts.savetube.me.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
     
     <script>
